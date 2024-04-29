@@ -52,29 +52,24 @@ init_vars()
 
 def show_score(choice, color, font, size):
     score_font = pygame.font.SysFont(font, size)
-    score_surface = score_font.render("Score: " + str(score), True, color)
-    score_rect = score_surface.get_rect()
     if choice == 1:
+        score_surface = score_font.render("Score: " + str(score), True, color)
+        score_rect = score_surface.get_rect()
         score_rect.midtop = (frame_size_x / 10, 15)
+    elif choice == 2:
+        score_surface = score_font.render("High Score: " + str(highScore), True, color)
+        score_rect = score_surface.get_rect()
+        score_rect.midtop = (frame_size_x / 1.150, 15)
     else:
         score_rect.midtop = (frame_size_x / 2, frame_size_y / 1.25)
 
     game_window.blit(score_surface, score_rect)
 
+
 def getHighScore():
     with open("high score list.txt", "r") as l:
         return l.read()
 
-def show_highScore(choice, color, font, size):
-    score_font = pygame.font.SysFont(font, size)
-    score_surface = score_font.render("High Score: " + str(highScore), True, color)
-    score_rect = score_surface.get_rect()
-    if choice == 1:
-        score_rect.midtop = (frame_size_x / 10, 15)
-    else:
-        score_rect.midtop = (frame_size_x / 1.150, 15)
-
-    game_window.blit(score_surface, score_rect)
 
 #game loop
 
@@ -145,7 +140,7 @@ while True:
             init_vars()
 
     show_score(1, white, 'consolas', 20)
-    show_highScore(0, white, 'consolas', 20)
+    show_score(2, white, 'consolas', 20)
     pygame.display.update()
     fps_controller.tick(speed)
 
